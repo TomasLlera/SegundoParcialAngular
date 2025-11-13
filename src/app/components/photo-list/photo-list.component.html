@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let photo of photos">
+      <tr *ngFor="let photo of photos; trackBy: trackByFn">
         <td>{{ photo.id }}</td>
         <td>{{ photo.albumId }}</td>
         <td>{{ photo.title }}</td>
@@ -65,7 +65,8 @@
     </tfoot>
   </table>
   
-  <button class="btn-secondary" (click)="getPhotos()">Refresh List</button>
+  <button class="btn-secondary" (click)="refreshPhotos()">Refresh List</button>
+  <button class="btn-warning" (click)="testAddPhoto()">TEST ADD PHOTO</button>
 </div>
 
 <!-- Edit Photo Modal -->

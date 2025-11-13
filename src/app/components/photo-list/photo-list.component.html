@@ -1,0 +1,104 @@
+<div class="container mt-4">
+  <h2>Photo Gallery</h2>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>AlbumId</th>
+        <th>Title</th>
+        <th>Thumbnail</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let photo of photos">
+        <td>{{ photo.id }}</td>
+        <td>{{ photo.albumId }}</td>
+        <td>{{ photo.title }}</td>
+        <td>
+          <img [src]="photo.thumbnailUrl" [alt]="photo.title" class="img-thumbnail">
+        </td>
+        <td>
+          <button class="btn btn-sm btn-primary" (click)="openEditModal(photo)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="deletePhoto(photo.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td></td>
+        <td>
+          <input
+            type="number"
+            [(ngModel)]="newPhoto.albumId"
+            placeholder="AlbumId"
+          />
+        </td>
+        <td>
+          <input
+            type="text"
+            [(ngModel)]="newPhoto.title"
+            placeholder="Title"
+          />
+        </td>
+        <td>
+          <input
+            type="text"
+            [(ngModel)]="newPhoto.thumbnailUrl"
+            placeholder="Thumbnail URL"
+          />
+        </td>
+        <td>
+          <button class="btn btn-success" (click)="addPhoto()">ADD</button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="5">
+          <input
+            type="text"
+            [(ngModel)]="newPhoto.url"
+            placeholder="Full Image URL"
+          />
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+  
+  <button class="btn-secondary" (click)="getPhotos()">Refresh List</button>
+</div>
+
+<!-- Edit Photo Modal -->
+<div *ngIf="showModal" class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>Edit Photo</h3>
+    <label>Album ID</label>
+    <input
+      type="number"
+      [(ngModel)]="editingPhoto.albumId"
+      placeholder="AlbumId"
+    />
+    <label>Title</label>
+    <input
+      type="text"
+      [(ngModel)]="editingPhoto.title"
+      placeholder="Title"
+    />
+    <label>URL</label>
+    <input
+      type="text"
+      [(ngModel)]="editingPhoto.url"
+      placeholder="Url"
+    />
+    <label>Thumbnail URL</label>
+    <input
+      type="text"
+      [(ngModel)]="editingPhoto.thumbnailUrl"
+      placeholder="Thumbnail URL"
+    />
+    <div class="modal-buttons">
+      <button class="btn btn-primary" (click)="confirmEdit()">Save</button>
+      <button class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
